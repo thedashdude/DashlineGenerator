@@ -1,0 +1,47 @@
+Enemies:
+    1 = Mafia
+    2 = Police
+    3 = Gang
+    4 = Soldiers
+    5 = Columbians
+    6 = Guards
+
+
+
+Mafia:
+    Guns = {70,75,68,69,1500} -- M16, Silencer, Double Barrel, Shotgun, Kalashnikov
+    Bats = {67,66,73,74} -- Bat, Club, Knife, Pipe
+    Pattern = {876,878,875,938} -- Gun Rand, Gun Patrol, Bat Rand, Bat Patrol
+    Fat = {2596,1464} -- Is Fat
+    
+Police:
+    Guns = {1551,1558} -- 9mm, Shotgun
+    Bats = {1553} -- Baton
+    Pattern = {932,933,931,939} -- Gun Rand, Gun Patrol, Bat Rand, Bat Patrol
+    Fat = {1570,937} -- Is Fat
+
+Gang:
+    Guns = {208,206,201} -- Uzi, Shotgun, 9mm
+    Bats = {202,203,204,205} -- Bat, Chain, Knife, Pipe
+    Pattern = {183,184,170,941} -- Gun Rand, Gun Patrol, Bat Rand, Bat Patrol
+    Fat = {2194,1289}
+    Dodge = {3973,2286}
+
+Soldiers:
+    Guns = {1117} -- Kalashnikov
+    Bats = {1118} -- Machete
+    Pattern = {674,696,672,2396} -- Gun Rand, Gun Patrol, Bat Rand, Bat Patrol
+    Fat = {1161,704} -- Is Fat
+
+Columbian:
+    Guns = {2288,2291,2293,2294} -- Famae, Mendoza, Shotgun, Silencer
+    Bats = {2290,2292,2289} -- Machete, Pipe, Knife
+    Pattern = {1356,1358,1354,1355} -- Gun Rand, Gun Patrol, Bat Rand, Bat Patrol
+    Fat = {2596,1464} -- Is Fat
+    Dodge = {3287,1886} -- Is Fat
+
+Guard:
+    Guns = {2679,2680} -- Magnum, Shotgun
+    Bats = {2681} -- Baton
+    Pattern = {1532,1534,1530,1531} -- Gun Rand, Gun Patrol, Bat Rand, Bat Patrol
+
