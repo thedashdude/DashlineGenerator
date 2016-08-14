@@ -9,6 +9,17 @@ Otherwise download the `Executable` folder and run `DashlineGenerator.exe`.
 
 The actual code is in the `DashlineGenerator` folder along with some other information on the data comprising a level.
 
+Dropbox
+--
+The files on Dropbox:
+
+[DashlineGenerator](https://www.dropbox.com/s/xi7aiqunkemwatr/DashlineGenerator.zip?dl=0)
+
+[DashlineGeneratorExecutable](https://www.dropbox.com/s/kjh6209p54bscla/DashlineGeneratorExecutable.zip?dl=0)
+
+[DashlineGeneratorLove](https://www.dropbox.com/s/evqsscehw22e3oo/DashlineGeneratorLove.zip?dl=0)
+
+
 How To Use
 ---
 Once the program is running you may specify an output folder. This is the folder of the level you wish to overwrite. You may type in the folder, paste it in or drag the folder onto the `EDIT FOLDER` screen to set that as the output folder. If you leave the output folder blank the written files will be placed in the same folder as the program to do with as you see fit.
