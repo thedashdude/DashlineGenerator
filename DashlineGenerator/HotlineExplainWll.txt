@@ -1,0 +1,40 @@
+level0.wll handles walls.
+Each entry in level0.wll has no seperator, just a consistant number of lines.
+The format of each entry is:
+<number>
+<x>
+<y>
+<number 2>
+<other>
+
+What <other> does is unknown, but it apears to always be 0.
+<number> and <number 2> handle the type of wall, but I dont have all possible values recorded
+
+<num>
+	8 = vertical basic wall 
+	7 = horizontal basic wall
+	682 = vertical glass
+	683 = horizontal glass
+
+<x>
+	x in pixels
+
+<y>
+	y in pixels
+
+<num2>
+	63 = vertical basic wall
+	62 = horizontal basic wall
+	1996 = vertical glass
+	1997 = horizontal glass
+
+<other>
+	just 0
+
+Example:
+For a vertical basic wall at (32,128):
+8
+32
+128
+63
+0

@@ -1,0 +1,2 @@
+I could not figure out what level0.play was formatted as. It apears to contain the data from the other files in a strict order with other numbers.
+If anyone can provide a detailed description of its contents that would be much apreciated.

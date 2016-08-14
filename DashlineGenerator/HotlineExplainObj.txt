@@ -1,0 +1,92 @@
+level0.obj handles enemies and doors among other dynamic objects.
+
+Each entry in level0.obj has no seperator, just a consistant number of lines.
+The format of each entry is:
+<type>
+<x>
+<y>
+<weapon/attribute>
+<angle>
+<2nd attribute>
+<other>
+
+What <other> does in unknown but it apears to always be 0
+<2nd attribute> is primarily movement variations for enemies.
+
+Possible values for each line:
+
+<type>
+	10 for russian mob enemy
+	25 for door vertical
+	26 for door horizontal
+	1583 for jackets car
+
+<x>
+	any x in pixels
+
+<y>
+	any y in pixels
+
+<weapon/attribute>
+	91 = door, matches to <type>25
+	92 = door, matches to <type>26
+	70 = M16
+	75 = Silencer
+	68 = double barrel
+	69 = shotgun
+	1500 = kalashnikov
+	67 = bat
+	66 = club
+	73 = knife
+	74 = pipe
+	2596 = fat
+	1766 = dog
+	2081 = phone
+	2077 = smoke
+	2078 = pipe
+	4154 = jackets car
+
+<angle>
+	90 = up
+	180 = left
+	270 = down
+	0 = right
+
+<2nd attribute>
+	877 = static
+	878 = patrol
+	876 = random
+	875 = random melee
+	938 = patrol melee
+	1464 = fat
+	1064 = dog
+	916 = phone
+	2407 = smoke
+	2408 = pipe
+	2345 = jackets car
+
+<other>
+	just zero as far as I can tell
+
+
+
+Examples:
+A door at (320, 608) is
+25
+320
+608
+91
+0
+0
+0
+
+A random moving enemy with a knife at (100, 300) is
+10
+100
+300
+73
+90
+875
+0
+
+
