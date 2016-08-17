@@ -1370,7 +1370,7 @@ end
 function love.mousepressed( x, y, button, istouch )
     --Alerts:add("Clicked.")
     if button == 1 and not mainMode then
-        lfIndex = math.min(math.floor((x-50+4)/8),levelFolder:len())
+        lfIndex = math.min(math.max(math.floor((x-200+4)/8),0),levelFolder:len())
     end
 end
 function love.directorydropped( path )
