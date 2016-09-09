@@ -13,6 +13,7 @@ Those files are only for the first floor, for subsequent floors the file name is
 
 There are other files explaing how each of those files is formatted.
 
-The lua program writes the data for the level it has made to files titled wll.txt, obj.txt and tls.txt
-Copy the data in them into the corresponding level0 file and clear the level0.play file to load the level in HM2.
+The lua program writes the data for the level it has made to files in the specified folder.
+
+
 To open the .wll, .obj, .tls, and .play, Notepad++ is quite effective, as Notepad can't open those file extensions.
