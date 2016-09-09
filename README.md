@@ -37,6 +37,3 @@ The bar on the right contains various parameters you can increment and decrement
 
 Hitting `PUBLISH` writes the generated files to the specified folder if possible.
 
-
----
-Contact me at thedashdude@gmail.com
