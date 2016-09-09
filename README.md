@@ -3,9 +3,22 @@ Dashline Generator is a program to procedurally generate levels for Hotline Miam
 
 What To Download
 ---
-If you have Love2D installed you can download the `LOVE` folder and run `DashlineGerator.love`.
+If you have Love2D installed you can download the `Love` folder and run `DashlineGerator.love`.
 
-Otherwise download the `EXECUTABLE` folder and run `DashlineGenerator.exe`.
+Otherwise download the `Executable` folder and run `DashlineGenerator.exe`.
+
+The actual code is in the `DashlineGenerator` folder along with some other information on the data comprising a level.
+
+Dropbox
+--
+The files on Dropbox:
+
+[DashlineGenerator](https://www.dropbox.com/s/vboahf3pm249hxw/DashlineGenerator1.1Source.zip?dl=0)
+
+[DashlineGeneratorExecutable](https://www.dropbox.com/s/tdxuvke9f6vi1uc/DashlineGenerator1.1Exe.zip?dl=0)
+
+[DashlineGeneratorLove](https://www.dropbox.com/s/1dvw7r4gi7ekej0/DashlineGenerator1.1Love.zip?dl=0)
+
 
 How To Use
 ---

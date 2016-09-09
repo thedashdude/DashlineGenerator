@@ -35,7 +35,7 @@ empty
 
 
 
-
+--Starters are rooms placed before the normal room placing algorithm that are not normally possible but add a nice variety to levels.
 function doStarter()
     ratioSum = Adjusters:get('+ ratio') + Adjusters:get('- ratio') + Adjusters:get('| ratio') + Adjusters:get('* ratio') + Adjusters:get('O ratio')
     n = math.floor(r(1,ratioSum))
@@ -54,7 +54,7 @@ function doStarter()
     end
 end
 
---The function that builds the level
+--Adds two hallways in the shape of a plus
 function plusStarter()
     x = math.floor(r(1,Adjusters:get('width')/3-2))*3 
     y = math.floor(r(1,Adjusters:get('height')/3-2))*3 
@@ -79,18 +79,24 @@ function plusStarter()
     DashSolids:set(nil,x,0,3,Adjusters:get('height'))
     DashSolids:set(nil,0,y,Adjusters:get('width'),3)
 end
+
+--Adds a hallway horizontally
 function dashStarter()
     x=0
     y = math.floor(r(1,Adjusters:get('height')/3-2))*3 
     box(0,y,Adjusters:get('width'),y+3)
     DashSolids:set(nil,0,y,Adjusters:get('width'),3)
 end
+
+--Adds a hallway vertically
 function pipeStarter()
     x = math.floor(r(1,Adjusters:get('width')/3-2))*3
     y = 0
     box(x,0,x+3,Adjusters:get('height'))
     DashSolids:set(nil,x,0,3,Adjusters:get('width'))
 end
+
+--Adds a ring shaped hallway like thing
 function ringStarter()
     x, y = math.floor(r(0,Adjusters:get('width')/3-3))*3, math.floor(r(0,Adjusters:get('height')/3-3))*3
     w, h = math.floor(r(3,(Adjusters:get('width') - x)/3 ))*3, math.floor(r(3,(Adjusters:get('height') - y)/3 ))*3
@@ -115,6 +121,7 @@ function ringStarter()
     end
 end
 
+--Converts a table to a string with each entry on a new line
 function makeString(tab)
     str = ''
     for i = 1, #tab do 
@@ -122,6 +129,8 @@ function makeString(tab)
     end
     return str
 end
+
+--Used to make sure every room has an enemy
 function floodEnemyTable(x,y)
     if enemyTable[x][y] == 0 then
         enemyTable[x][y] = 2
@@ -145,6 +154,8 @@ function floodEnemyTable(x,y)
         end
     end
 end
+
+--Checks to see if every room has an enemy
 function enemyTableFull()
     for i = 1, Adjusters:get('width')/3 do
         for j=1,Adjusters:get('height')/3 do
@@ -155,6 +166,8 @@ function enemyTableFull()
     end
     return true
 end
+
+--Places an enemy if the room doesn't have one
 function addEnemyTable()
     for i = 1, Adjusters:get('width')/3 do
         for j=1,Adjusters:get('height')/3 do
@@ -168,7 +181,10 @@ function addEnemyTable()
         end
     end
 end
+
+--The function that actually generates the levels, all level generation functions are only ever called from here
 function generator()
+    --Reset the data from the previous level
         DashSolids.Solids = {}
         obj = PlayerObjs[Player]
         wllTable = {}
@@ -695,17 +711,6 @@ function placeEnemy(x,y,a,b,c,d,aRatio,bRatio,cRatio,dRatio)
     end
 end
 
---Well, uh, I, uh...
---This was necessary at the time.
---Trust me
-function is73or74()
-    --Pick either 73 or 74
-    if math.random() > 0.5 then
-        return 73
-    end
-    return 74
-end
-
 --add horizontal glass at x,y, removing any wall that may have been there before
 function addHGlass( x,y )
     removeWallsAt(x,y,'H')
@@ -896,7 +901,7 @@ end
 
 function love.load()
     
-    --LevelName = "LevelD"
+    --Just data the program needs to know to work with HLM2
     PlayerRange = {1,11}
     Player = 1
     PlayerNames = {"Jacket","Biker","Cobra","Cop","Fans","Hammer","Henchman","Rat","Soldier","Son","Writer"}
@@ -979,19 +984,19 @@ function love.load()
 
     }
 
-    for i = 1, 100 do
-        --prit(i, isGun(i))
-    end
+    --Variables on the visual part of the program
     love.window.setTitle("Dashline Generator: Hotline Miami 2 Procedural Level Generation")
+    font = love.graphics.newFont( 12 )
 
     gridSize = 24
     --os.execute('explorer .')
     f = assert(io.open('data.txt', "r"))
     t = f:read()
-    levelNumber = tonumber(f:read())
+    levelNumber = tonumber(f:read()) or -1
     f:close()
 
     levelFolder = t or ""
+
     lfIndex = levelFolder:len()
     mainMode = true
     love.window.setMode(1200, 800)
@@ -1001,10 +1006,14 @@ function love.load()
     --Set the random seed to the time to get a unique level each time.
     math.randomseed( os.time() )
 
-    --DashSolids is a file that helps detect collisions, this loads it
     infoString = ""
+    
+    --Files used through the program, see their files for information on them 
     DashSolids = require('DashSolids')
+    Alerts = require('Alerts')
     Buttons = require('Buttons')
+    Adjusters = require('Adjusters')
+
     Buttons:add('GENERATE',10+Buttons.width("EDIT FOLDER")+Buttons.width("PUBLISH")+10,22*gridSize+25,nil,30,generator)
     Buttons:add('PUBLISH',10+Buttons.width("EDIT FOLDER")+5,22*gridSize+25,nil,30,publish)
     Buttons:add('EDIT FOLDER',10,22*gridSize+25,nil,30,endMainMode)
@@ -1014,9 +1023,7 @@ function love.load()
     Buttons:add('CHARACTER',10+Buttons.width("EDIT FOLDER")+Buttons.width("PUBLISH")+Buttons.width("GENERATE")+Buttons.width("SIDEBAR HELP 1")+Buttons.width("SIDEBAR HELP 2")+25,22*gridSize+25,nil,30,nextPlayer)
     Buttons:add('ENEMY',10+Buttons.width("EDIT FOLDER")+Buttons.width("PUBLISH")+Buttons.width("GENERATE")+Buttons.width("SIDEBAR HELP 1")+Buttons.width("SIDEBAR HELP 2")+Buttons.width("CHARACTER")+30,22*gridSize+25,nil,30,nextEnemy)
 
-    font = love.graphics.newFont( 12 )
-
-    Adjusters = require('Adjusters')
+    
     Adjusters:add('glass%',0,25,1,2)
     Adjusters:add('rooms',0,100,1,25)
     Adjusters:add('gunPatrol#',0,10,1,5)
@@ -1034,15 +1041,11 @@ function love.load()
     Adjusters:add('* ratio',0,10,1,1)
     Adjusters:add('O ratio',0,10,1,1)
 
-    Alerts = require('Alerts')
     -- the files that need to be changed are level0.wll, level0.wobj, and level0.tls
 
     -- tables are used with each entry being a distinct object/sprite then concatenated into a string at the end of generating the level
     -- this allows entries to be removed if you know the index
-    -- the initial text in the obj string is the car jacket comes out of
-
-    
-
+    -- the initial text in the obj string is the car the player comes out of
     wllTable = {}
     objTable = {}
     objTable[1] = obj
@@ -1058,7 +1061,7 @@ function love.load()
         end
     end
 
-
+    --enemyTable is similar but used to tell if all rooms have enemies
     enemyTable = {}
 
 
@@ -1078,11 +1081,13 @@ function love.load()
     generator()
 
 
-
+    --just variables that are used in user interaction
     mouseDown = false
     spaceDown = false
     AdjustY = 10
 end
+
+--Updates every frame depending on mainMode
 function love.update(dt)
     if mainMode then
         if love.mouse.isDown(1) then
@@ -1120,6 +1125,8 @@ function love.update(dt)
         
     end
 end
+
+
 function love.draw( ... )
     love.graphics.setFont(font)
     width, height, flags = love.window.getMode( )
@@ -1131,7 +1138,7 @@ function love.draw( ... )
         
 
 
-
+        --These are all bounding rectangles
         --for Alerts
         love.graphics.setColor(230,230,230)
         love.graphics.rectangle('fill',20 + gridSize*33,5,256,height-10)
@@ -1173,13 +1180,12 @@ function love.draw( ... )
         else
             love.graphics.print("Currently set to output locally.",10,height-30)
         end
-        --prit (SelectedEnemyNumber)
-        --prit(EnemyOptions[SelectedEnemyNumber])
+
+        --Who the level is made for and the enemy they are facing
         love.graphics.print(PlayerNames[Player] .. " vs. " .. EnemyNames[EnemyOptions[Player][SelectedEnemyNumber]],630,22*gridSize + 30)
         love.graphics.setColor(200,200,200)
         love.graphics.rectangle('fill',0,0,width,4)
         love.graphics.rectangle('fill',0,height-4,width,4)
-        --drawEnemytable(offset)
     else
         drx = 200
         dry = 200
@@ -1203,6 +1209,8 @@ function love.draw( ... )
         --C:\Users\theda_000\Documents\My Games\HotlineMiami2\Levels\single\HOLDER\
     end
 end
+
+--Draw the levels floors
 function drawTls(offset)
     for i =1, #tlsTable do
         k = tlsTable[#tlsTable-i+1]
@@ -1210,6 +1218,8 @@ function drawTls(offset)
         love.graphics.rectangle('fill',offset.x+k[4]/32*gridSize,offset.y+k[5]/32*gridSize,gridSize/2,gridSize/2)
     end
 end
+
+--For bug fixing, shows rooms with enemies in them
 function drawEnemytable(offset)
     for i = 1, Adjusters:get('width')/3 do
         for j=1,Adjusters:get('height')/3 do
@@ -1220,6 +1230,8 @@ function drawEnemytable(offset)
         end
     end
 end
+
+--Draw the levels walls
 function drawWalls(offset)
     for i =1, #wllTable do
         k = wllTable[i]
@@ -1238,6 +1250,8 @@ function drawWalls(offset)
         love.graphics.line(offset.x+k[2]/32*gridSize,offset.y+k[3]/32*gridSize,offset.x+k[2]/32*gridSize+dx,offset.y+k[3]/32*gridSize+dy)
     end
 end
+
+--Draw the levels Enemies and doors
 function drawObjects(offset)
     for i =1, #objTable do
         k = objTable[i]
@@ -1265,6 +1279,8 @@ function drawObjects(offset)
         --love.graphics.line(offset.x+k[2],offset.y+k[3],offset.x+k[2]+dx,offset.y+k[3]+dy)
     end
 end
+
+--Checks if n is a gun or melee weapon
 function isGun(n)
     for i = 1, 6 do
         for j = 1, #EnemyData[i].Guns do
@@ -1275,6 +1291,8 @@ function isGun(n)
     end
     return false
 end
+
+--Checks if n is a random patrol pattern
 function isRand(n)
     for i = 1, 6 do
         for j = 1, #EnemyData[i].Pattern do
@@ -1285,18 +1303,12 @@ function isRand(n)
     end
     return 9/0
 end
---[[
 
-name: value
-inc     dec
-
-
-
-]]
 function love.wheelmoved( x, y )
     AdjustY = AdjustY + y*10
 end
 
+--Write the files to the specified folder
 function publish()
     wll = ""
     for i=1,#wllTable do
@@ -1341,15 +1353,21 @@ function publish()
         --print("snafubar")
     end
 end
+
+--Write the folder
 function love.textinput( text )
     if not mainMode then
         levelFolder = levelFolder:sub(1,lfIndex) .. text .. levelFolder:sub(lfIndex+1)
         lfIndex = lfIndex + 1
     end
 end
+
+--Yup
 function endMainMode()
     mainMode = false
 end
+
+
 function love.keypressed(key)
     if not mainMode then
         if key == "backspace" and lfIndex ~= 0 then
@@ -1367,18 +1385,22 @@ function love.keypressed(key)
         end
     end
 end
+
+--Select cursor location in text
 function love.mousepressed( x, y, button, istouch )
     --Alerts:add("Clicked.")
     if button == 1 and not mainMode then
         lfIndex = math.min(math.max(math.floor((x-200+4)/8),0),levelFolder:len())
     end
 end
+
 function love.directorydropped( path )
     if mainMode == false then
         levelFolder = path
         lfIndex = levelFolder:len()
     end
 end
+
 function directory_exists( sPath )
     if type( sPath ) ~= "string" then return false end
     local response = os.execute( "cd " .. sPath )
@@ -1387,6 +1409,8 @@ function directory_exists( sPath )
     end
     return false
 end
+
+--Just lots of text explaing the values.
 function sidebarHelp1()
     infoString = [[glass% is the percent chance that a wall being placed starts a string of glass.
 
@@ -1414,26 +1438,7 @@ height is the height of level.
     O places nothing.]]
 end
 
-
---[[
-
-glass%
-rooms
-gunPatrol#
-gunRand#
-meleePatrol#
-meleeRand#
-minMafia
-maxMafia
-
-width
-height
-+ ratio
-- ratio
-| ratio
-* ratio
-O ratio
-    ]]
+--Change the player
 function nextPlayer()
     Alerts:add("Changed character.")
     Player = Player + 1
@@ -1444,6 +1449,8 @@ function nextPlayer()
     SelectedEnemyNumber = 1
     generator()
 end
+
+--Change the enemy the player is fighting
 function nextEnemy()
     Alerts:add("Changed enemy.")
     SelectedEnemyNumber = SelectedEnemyNumber + 1
@@ -1453,6 +1460,8 @@ function nextEnemy()
     SelectedEnemy = EnemyOptions[Player][SelectedEnemyNumber]
     generator()
 end
+
+--make the .hlm file
 function makeHlm()
     levelNumber = levelNumber + 1
     str = [[DASHLINE]]..levelNumber.."\n"..[[0
@@ -1481,6 +1490,8 @@ FLORIDA
 
     return str
 end
+
+--Switches from the programs Player number to HLM2's
 function makePlayerNumber( ... )
     PlayerNames = {"Jacket","Biker","Cobra","Cop","Fans","Hammer","Henchman","Rat","Soldier","Son","Writer"}
     --[[
@@ -1499,7 +1510,11 @@ function makePlayerNumber( ... )
     switch = {10,11,6,1,0,9,8,5,3,4,2}
     return switch[Player]
 end
+
+--Make sure the data.txt works when done
 function love.quit( ... )
+    levelFolder = levelFolder or ""
+    levelNumber = levelNumber or -1
     file = assert(io.open('data.txt', "w"))
     file:write(levelFolder .. "\n" .. levelNumber)
     file:close()
